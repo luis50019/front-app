@@ -62,6 +62,7 @@ function Home() {
     } finally {
       const token = Cookies.get('access_token');
       if (token) {
+        console.log("toke: ",token)
         setToken(token)
         navigate('/profile')
       }
