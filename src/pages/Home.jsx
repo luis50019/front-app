@@ -13,12 +13,10 @@ function Home() {
   const [option, setOption] = useState();
 
   useEffect(()=>{
-    const token = Cookies.get('access_token');
-    if(token){
-      setToken(token);
+    if(isAuth){
       navigate('/profile');
     }
-  },[])
+  },[data])
 
   const handlerOnsubmit = async (data) => {
     try {
@@ -57,13 +55,11 @@ function Home() {
       }
 
     } catch (e) {
+      setIsAuth(false)
       console.log(e)
       console.log("ocurrio un problema")
     } finally {
-      const token = Cookies.get('access_token');
-      if (token) {
-        console.log("toke: ",token)
-        setToken(token)
+      if (isAuth) {
         navigate('/profile')
       }
     }
