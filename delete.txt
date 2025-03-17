@@ -1,0 +1,59 @@
+const navigate = useNavigate();
+  const [data, setData] = useState();
+  const [token, setToken] = useState(null);
+  const [isAuth, setIsAuth] = useState(false);
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [option, setOption] = useState();
+
+  useEffect(()=>{
+    if(isAuth){
+      navigate('/profile');
+    }
+  },[data])
+
+  const handlerOnsubmit = async (data) => {
+    try {
+      let res;
+      setIsAuth(false);
+      console.log(data)
+      if (data.name === '' || data.email == '' || data.password == '') {
+        setToken("los datos estan vacios")
+        return;
+      }
+
+
+      if (option == "login") {
+        res = await login(data);
+        if (res) {
+
+          setData(res.data);
+          setIsAuth(true);
+        }
+      }
+
+      if (option == "register") {
+        res = await registerUser(data);
+        if (res) {
+          setData(res.data);
+          setIsAuth(true);
+        }
+      }
+
+      if (option == "logout") {
+        res = await logout();
+        if (res) {
+          setData(res.data);
+          setIsAuth(true);
+        }
+      }
+
+    } catch (e) {
+      setIsAuth(false)
+      console.log(e)
+      console.log("ocurrio un problema")
+    } finally {
+      if (isAuth) {
+        navigate('/profile')
+      }
+    }
+  }
