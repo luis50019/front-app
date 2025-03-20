@@ -18,8 +18,8 @@ function ProtectedRoutes() {
   if (loading) return <p>Cargando...</p>;
 
   // Si el usuario está autenticado y está en "/login" o "/"
-  if (userAuth) {
-    navigate('/home')
+  if (!userAuth) {
+    navigate('/')
   }
 
   // Si no está autenticado y está en una ruta protegida, redirigirlo a "/"

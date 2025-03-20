@@ -87,11 +87,13 @@ export default function ContextApp({ children }) {
       }catch(e){
         setUserAuth(false);
         setInfoUser(null);
+      
       }
       return ;
     }
     checkLogin()
   },[])
+
 
 
   return (

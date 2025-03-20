@@ -11,7 +11,9 @@ function NavBar() {
   const handlerLogOut = async () => {
     try {
       const res = await logOutUser();
-
+      if(res.statusCode == 200){
+        navigate('/')
+      }
     } catch (error) {
       console.log(error)
     }

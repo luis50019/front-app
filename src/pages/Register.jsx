@@ -1,32 +1,14 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useContextApp } from '../context/ContextApp.jsx';
-import { Link, useNavigate } from 'react-router'; // Asegúrate de importar desde 'react-router-dom'
+import { Link } from 'react-router'; // Asegúrate de importar desde 'react-router-dom'
 import { FaReact } from "react-icons/fa";
 import Input from '../components/UI/Input.jsx';
+import useUser from '../hooks/useUser.js';
 
 function LoginPage() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { userAuth, error, userRegister } = useContextApp();
-  const navigate = useNavigate();
-
-  const handlerOnsubmit = async (data) => {
-    try {
-      const res = await userRegister(data);
-      if (res) {
-        navigate('/home');
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(()=>{
-    console.log(userAuth)
-    if(userAuth){
-      navigate('/home')
-    }
-  },[userAuth])
+  const [handlerOnsubmit,error] = useUser("register");
+  
 
   return (
     <div className='w-full flex flex-col gap-5 justify-start items-center h-[90vh]'>
@@ -81,9 +63,9 @@ function LoginPage() {
           })}}
           errorValue={errors.password?.message}
         />
-        <button type='submit' className='w-full text-center bg-[#00A524] text-[#fff] py-1 rounded-md'>Sign in</button>
+        <button type='submit' className='w-full text-center bg-[#00A524] text-[#fff] py-1 rounded-md'>Create account</button>
         <span className='h-5 text-[#f00] w-full text-center font-light'>
-          {error?.message}
+          {error}
         </span>
       </form>
 
